@@ -91,7 +91,7 @@
 
     1. プレイブック
 
-        - Playbook Name: `Get-GeoFromIpAndTagIncident` (複数名共同で実施する場合は末尾に一意識別子をつけてください)
+        - Playbook Name: `Get-GeoFromIpAndTagIncident`
 
         ![](../images/ex01-203d.png)
 
