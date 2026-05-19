@@ -2,6 +2,24 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "workspaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name for the Log Analytics workspace"
+            }
+        },
+        "workspaceResourceId": {
+            "type": "string",
+            "metadata": {
+                "description": "Resource ID for the Log Analytics workspace"
+            }
+        },
+        "managedIngestionDcrName": {
+            "type": "string",
+            "metadata": {
+                "description": "Data Collection Rule name for managed identity ingestion"
+            }
+        },
         "WorkspaceId": {
             "type": "secureString",
             "metadata": {
@@ -39,13 +57,110 @@
                       "secureValue": "[parameters('SharedKey')]"
                     }
                   ],
-                "primaryScriptUri": "https://raw.githubusercontent.com/Azure/Azure-Sentinel/master/Solutions/Training/Azure-Sentinel-Training-Lab/Artifacts/Scripts/IngestCSV.ps1",
+                "primaryScriptUri": "https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel/refs/heads/features/sampledataingest/artifacts/Scripts/IngestCSV.ps1",
                 "supportingScriptUris": [],
                 "timeout": "PT30M",
                 "cleanupPreference": "Always",
                 "retentionInterval": "P1D"
             }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/workspaces/tables",
+            "apiVersion": "2022-10-01",
+            "name": "[concat(parameters('workspaceName'), '/TrainingTelemetry_CL')]",
+            "properties": {
+                "schema": {
+                    "name": "TrainingTelemetry_CL",
+                    "columns": [
+                        {
+                            "name": "TimeGenerated",
+                            "type": "datetime"
+                        },
+                        {
+                            "name": "SourceTable",
+                            "type": "string"
+                        },
+                        {
+                            "name": "SourceFile",
+                            "type": "string"
+                        },
+                        {
+                            "name": "Record",
+                            "type": "dynamic"
+                        }
+                    ]
+                },
+                "retentionInDays": 90,
+                "totalRetentionInDays": 90
+            }
+        },
+        {
+            "type": "Microsoft.Insights/dataCollectionRules",
+            "apiVersion": "2023-03-11",
+            "name": "[parameters('managedIngestionDcrName')]",
+            "location": "[resourceGroup().location]",
+            "kind": "Direct",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/workspaces/tables', parameters('workspaceName'), 'TrainingTelemetry_CL')]"
+            ],
+            "properties": {
+                "streamDeclarations": {
+                    "Custom-TrainingTelemetry": {
+                        "columns": [
+                            {
+                                "name": "TimeGenerated",
+                                "type": "datetime"
+                            },
+                            {
+                                "name": "SourceTable",
+                                "type": "string"
+                            },
+                            {
+                                "name": "SourceFile",
+                                "type": "string"
+                            },
+                            {
+                                "name": "Record",
+                                "type": "dynamic"
+                            }
+                        ]
+                    }
+                },
+                "destinations": {
+                    "logAnalytics": [
+                        {
+                            "workspaceResourceId": "[parameters('workspaceResourceId')]",
+                            "name": "trainingWorkspace"
+                        }
+                    ]
+                },
+                "dataFlows": [
+                    {
+                        "streams": [
+                            "Custom-TrainingTelemetry"
+                        ],
+                        "destinations": [
+                            "trainingWorkspace"
+                        ],
+                        "transformKql": "source",
+                        "outputStream": "Custom-TrainingTelemetry_CL"
+                    }
+                ]
+            }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "managedIngestionDcrResourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Insights/dataCollectionRules', parameters('managedIngestionDcrName'))]"
+        },
+        "managedIngestionDcrImmutableId": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Insights/dataCollectionRules', parameters('managedIngestionDcrName')), '2023-03-11').properties.immutableId]"
+        },
+        "managedIngestionEndpoint": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Insights/dataCollectionRules', parameters('managedIngestionDcrName')), '2023-03-11', 'Full').properties.endpoints.logsIngestion]"
+        }
+    }
 }
