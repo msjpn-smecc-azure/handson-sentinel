@@ -24,9 +24,16 @@
     "functions": [],
     "variables": {
         "identityName": "[concat('userIdentity',uniqueString(resourceGroup().id))]",
-        "deploymentScriptStorageAccountName": "[concat('dss', uniqueString(resourceGroup().id, 'ingestevents'))]"
+        "deploymentScriptStorageAccountName": "[concat('dss', uniqueString(resourceGroup().id, 'ingestevents'))]",
+        "storageAccountContributorRoleId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '17d1049b-9a84-46fb-8f53-869881c3d3ab')]"
     },
     "resources": [
+        {
+            "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+            "apiVersion": "2023-01-31",
+            "name": "[variables('identityName')]",
+            "location": "[resourceGroup().location]"
+        },
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2023-05-01",
@@ -40,7 +47,22 @@
             },
             "kind": "StorageV2",
             "properties": {
-                "allowSharedKeyAccess": true
+                "allowSharedKeyAccess": false
+            }
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2022-04-01",
+            "name": "[guid(resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName')), variables('identityName'), variables('storageAccountContributorRoleId'))]",
+            "scope": "[resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[variables('storageAccountContributorRoleId')]",
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')), '2023-01-31').principalId]",
+                "principalType": "ServicePrincipal"
             }
         },
         {
@@ -49,15 +71,20 @@
             "name": "runPowerShellInline",
             "location": "[resourceGroup().location]",
             "kind": "AzurePowerShell",
+            "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]": {}
+                }
+            },
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName'))]"
+                "[resourceId('Microsoft.Authorization/roleAssignments', guid(resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName')), variables('identityName'), variables('storageAccountContributorRoleId')))]"
             ],
             "properties": {
                 "forceUpdateTag": "1",
                 "azPowerShellVersion": "10.0",
                 "storageAccountSettings": {
-                    "storageAccountName": "[variables('deploymentScriptStorageAccountName')]",
-                    "storageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName')), '2023-05-01').keys[0].value]"
+                    "storageAccountName": "[variables('deploymentScriptStorageAccountName')]"
                 },
                 "environmentVariables": [
                     {
