@@ -161,7 +161,7 @@ $eventsData = Import-Csv "query_data.csv"
 
 # Submit the data to the API endpoint
 $artifactsRepoBaseUrl = "https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel"
-$artifactsBranch = "features/sampledataingest"
+$artifactsBranch = "features/shift-to-defender-portal"
 $artifactsLocation = "$artifactsRepoBaseUrl/$artifactsBranch"
 
 # $status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/solarigate_CEFevent.csv" -EventsTable "CommonSecurityLog"
