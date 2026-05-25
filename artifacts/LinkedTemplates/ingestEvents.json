@@ -24,8 +24,8 @@
     "functions": [],
     "variables": {
         "identityName": "[concat('userIdentity',uniqueString(resourceGroup().id))]",
-        "deploymentScriptStorageAccountName": "[concat('x-sa-', uniqueString(resourceGroup().id))]",
-        "deploymentScriptName": "[concat('x-ds-', uniqueString(resourceGroup().id))]"
+        "deploymentScriptStorageAccountName": "[concat('xxxsa', uniqueString(resourceGroup().id))]",
+        "deploymentScriptName": "[concat('xxxds', uniqueString(resourceGroup().id))]"
     },
     "resources": [
         {
