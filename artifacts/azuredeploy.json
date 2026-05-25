@@ -7,13 +7,6 @@
             "metadata": {
                 "description": "The workspace name should include 4-63 letters, digits or '-'. The '-' shouldn't be the first or the last symbol"
             }
-        },
-        "managedIngestionDcrName": {
-            "type": "string",
-            "defaultValue": "training-telemetry-dcr",
-            "metadata": {
-                "description": "Data Collection Rule name for managed identity ingestion"
-            }
         }
     },
     "variables": {
@@ -29,7 +22,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('_artifactsLocation'), 'artifacts/LinkedTemplates/workspace.json')]",
+                    "uri": "[uri(variables('_artifactsLocation'), 'Artifacts/LinkedTemplates/workspace.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -58,19 +51,10 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('_artifactsLocation'), 'artifacts/LinkedTemplates/ingestEvents.json')]",
+                    "uri": "[uri(variables('_artifactsLocation'), 'Artifacts/LinkedTemplates/ingestEvents.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "workspaceName": {
-                        "value": "[parameters('workspaceName')]"
-                    },
-                    "workspaceResourceId": {
-                        "value": "[reference('workspaceCreation').outputs.workspaceResourceIdOutput.value]"
-                    },
-                    "managedIngestionDcrName": {
-                        "value": "[parameters('managedIngestionDcrName')]"
-                    },
                     "WorkspaceId": {
                         "value": "[reference('workspaceCreation').outputs.workspaceIdOutput.value]"
                     },
@@ -90,7 +74,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('_artifactsLocation'), 'artifacts/LinkedTemplates/alertRules.json')]",
+                    "uri": "[uri(variables('_artifactsLocation'), 'Artifacts/LinkedTemplates/alertRules.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -110,7 +94,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('_artifactsLocation'), 'artifacts/LinkedTemplates/playbook.json')]",
+                    "uri": "[uri(variables('_artifactsLocation'), 'Artifacts/LinkedTemplates/playbook.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -130,7 +114,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('_artifactsLocation'), 'artifacts/LinkedTemplates/workbook.json')]",
+                    "uri": "[uri(variables('_artifactsLocation'), 'Artifacts/LinkedTemplates/workbook.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -153,7 +137,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('_artifactsLocation'), 'artifacts/LinkedTemplates/watchlist.json')]",
+                    "uri": "[uri(variables('_artifactsLocation'), 'Artifacts/LinkedTemplates/watchlist.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -216,18 +200,6 @@
             }
         }
     ],
-    "outputs": {
-        "managedIngestionDcrResourceId": {
-            "type": "string",
-            "value": "[reference('ingestEvents').outputs.managedIngestionDcrResourceId.value]"
-        },
-        "managedIngestionDcrImmutableId": {
-            "type": "string",
-            "value": "[reference('ingestEvents').outputs.managedIngestionDcrImmutableId.value]"
-        },
-        "managedIngestionEndpoint": {
-            "type": "string",
-            "value": "[reference('ingestEvents').outputs.managedIngestionEndpoint.value]"
-        }
+    "outputs": { 
     }
 }
