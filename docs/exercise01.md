@@ -10,7 +10,7 @@
 
 1. [Log Analytics Workspace 作成](#log-analytics-workspace-作成)
 1. [Microsoft Sentinel ワークスペース 作成](#microsoft-sentinel-ワークスペース-作成)
-1. [Sentinel Training ラボ のデプロイ](#microsoft-sentinel-training-ラボ-のデプロイ)
+1. [サンプルデータの投入](#サンプルデータの投入)
 1. [Microsoft Sentinel プレイブックの構成](#microsoft-sentinel-プレイブックの構成)
 
 ## Log Analytics Workspace 作成
@@ -59,6 +59,26 @@
     ![](../images/ex01-103.png)
 
 
+## サンプルデータの投入
+
+1. 以下のデプロイボタンより、サンプルデータをワークスペースへ投入
+
+    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmsjpn-smecc-azure%2Fhandson-sentinel%2Ffeatures%2Fsampledataingest%2Fartifacts%2Fazuredeploy.json)
+
+    (*) [ARMテンプレート](https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel/features/sampledataingest/artifacts/azuredeploy.json)
+
+1. デプロイ画面で、以下の項目を入力して「確認と作成」を選択
+
+    - サブスクリプション: (任意)
+    - リソースグループ: (作成したもの)
+    - ワークスペース: (作成したもの)
+
+1. (オプション) データ投入で利用した不要なリソース(`xxx` で始まる以下のリソース)を削除
+
+    - Deployment Script
+    - ストレージアカウント
+
+<!-- 
 ## Microsoft Sentinel Training ラボ のデプロイ
 
 1. Azure ポータルを開き、上部検索窓から `Microsoft Sentinel Training Lab Solution` を検索して開く
@@ -103,11 +123,12 @@
 
 
 #### ～ デプロイ待ち (20-30分) ☕☕☕ ... ～
+-->
 
 
 ## Microsoft Sentinel プレイブックの構成
 
-1. ラボがデプロイされたリソースグループへ移動
+1. デプロイされたリソースグループへ移動
 
     ![](../images/ex01-301.png)
 
