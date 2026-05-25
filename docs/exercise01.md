@@ -10,7 +10,7 @@
 
 1. [Log Analytics Workspace 作成](#log-analytics-workspace-作成)
 1. [Microsoft Sentinel ワークスペース 作成](#microsoft-sentinel-ワークスペース-作成)
-1. [Sentinel Training ラボ のデプロイ](#microsoft-sentinel-training-ラボ-のデプロイ)
+1. [サンプルデータの投入](#サンプルデータの投入)
 1. [Microsoft Sentinel プレイブックの構成](#microsoft-sentinel-プレイブックの構成)
 
 ## Log Analytics Workspace 作成
@@ -73,6 +73,10 @@
     - リソースグループ: (作成したもの)
     - ワークスペース: (作成したもの)
 
+1. (オプション) データ投入で利用した不要なリソース(`xxx` で始まる以下のリソース)を削除
+
+    - Deployment Script
+    - ストレージアカウント
 
 <!-- 
 ## Microsoft Sentinel Training ラボ のデプロイ
@@ -124,7 +128,7 @@
 
 ## Microsoft Sentinel プレイブックの構成
 
-1. ラボがデプロイされたリソースグループへ移動
+1. デプロイされたリソースグループへ移動
 
     ![](../images/ex01-301.png)
 
