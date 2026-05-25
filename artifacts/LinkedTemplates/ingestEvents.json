@@ -33,7 +33,7 @@
             "name": "[variables('deploymentScriptStorageAccountName')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "SecureControl": "Ignore"
+                "SecurityControl": "Ignore"
             },
             "sku": {
                 "name": "Standard_LRS"
