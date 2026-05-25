@@ -23,18 +23,42 @@
     },
     "functions": [],
     "variables": {
-        "identityName": "[concat('userIdentity',uniqueString(resourceGroup().id))]"
+        "identityName": "[concat('userIdentity',uniqueString(resourceGroup().id))]",
+        "deploymentScriptStorageAccountName": "[concat('dss', uniqueString(resourceGroup().id, 'ingestevents'))]"
     },
     "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2023-05-01",
+            "name": "[variables('deploymentScriptStorageAccountName')]",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "SecureControl": "Ignore"
+            },
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "allowSharedKeyAccess": true
+            }
+        },
         {
             "type": "Microsoft.Resources/deploymentScripts",
             "apiVersion": "2020-10-01",
             "name": "runPowerShellInline",
             "location": "[resourceGroup().location]",
             "kind": "AzurePowerShell",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName'))]"
+            ],
             "properties": {
                 "forceUpdateTag": "1",
                 "azPowerShellVersion": "10.0",
+                "storageAccountSettings": {
+                    "storageAccountName": "[variables('deploymentScriptStorageAccountName')]",
+                    "storageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('deploymentScriptStorageAccountName')), '2023-05-01').keys[0].value]"
+                },
                 "environmentVariables": [
                     {
                       "name": "CustomerId",
