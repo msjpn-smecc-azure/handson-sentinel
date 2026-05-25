@@ -17,6 +17,9 @@
     },
     "functions": [],
     "variables": {
+        "_artifactsRepoBaseUrl": "https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel/",
+        "_artifactsBranch": "features/sampledataingest",
+        "_artifactsLocation": "[concat(variables('_artifactsRepoBaseUrl'), variables('_artifactsBranch'), '/')]",
         "identityName": "[concat('userIdentity',uniqueString(resourceGroup().id))]"
     },
     "resources": [
@@ -39,7 +42,7 @@
                       "secureValue": "[parameters('SharedKey')]"
                     }
                   ],
-                "primaryScriptUri": "https://raw.githubusercontent.com/Azure/Azure-Sentinel/master/Solutions/Training/Azure-Sentinel-Training-Lab/Artifacts/Scripts/IngestCSV.ps1",
+                "primaryScriptUri": "[uri(variables('_artifactsLocation'), 'artifacts/Scripts/IngestCSV.ps1')]",
                 "supportingScriptUris": [],
                 "timeout": "PT30M",
                 "cleanupPreference": "Always",
