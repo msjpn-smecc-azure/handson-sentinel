@@ -77,11 +77,19 @@
                     },
                     {
                       "name": "ArtifactsRepoBaseUrl",
+<<<<<<< HEAD
                       "value": "[uri(parameters('ArtifactsRepoBaseUrl'))]"
                     },
                     {
                       "name": "ArtifactsBranch",
                       "value": "[uri(parameters('ArtifactsBranch'))]"
+=======
+                      "value": "[parameters('ArtifactsRepoBaseUrl')]"
+                    },
+                    {
+                      "name": "ArtifactsBranch",
+                      "value": "[parameters('ArtifactsBranch')]"
+>>>>>>> 3877038dd76a502c8136a949e9b441f9dd9f69de
                     }
                   ],
                 "primaryScriptUri": "[uri(parameters('ArtifactsRepoBaseUrl'), parameters('ArtifactsBranch'), 'artifacts/Scripts/IngestCSV.ps1')]",

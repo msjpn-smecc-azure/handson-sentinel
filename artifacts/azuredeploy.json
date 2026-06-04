@@ -56,10 +56,17 @@
                 },
                 "parameters": {
                     "ArtifactsRepoBaseUrl": {
+<<<<<<< HEAD
                         "value": "[uri(variables('_artifactsRepoBaseUrl'))]"
                     },
                     "ArtifactsBranch": {
                         "value": "[uri(variables('_artifactsBranch'))]"
+=======
+                        "value": "[variables('_artifactsRepoBaseUrl')]"
+                    },
+                    "ArtifactsBranch": {
+                        "value": "[variables('_artifactsBranch')]"
+>>>>>>> 3877038dd76a502c8136a949e9b441f9dd9f69de
                     },  
                     "WorkspaceId": {
                         "value": "[reference('workspaceCreation').outputs.workspaceIdOutput.value]"
