@@ -7,6 +7,9 @@
 
 $CustomerId = ${Env:CustomerId}
 $SharedKey = ${Env:SharedKey}
+$ArtifactsRepoBaseUrl = ${Env:ArtifactsRepoBaseUrl}
+$ArtifactsBranch = ${Env:ArtifactsBranch}
+$ArtifactsLocation = "$ArtifactsRepoBaseUrl/$ArtifactsBranch"
 
 # You can use an optional field to specify the timestamp from the data. If the time field is not specified, Azure Monitor assumes the time is the message ingestion time
 #$TimeStampField = ""
@@ -160,9 +163,6 @@ $eventsData = Import-Csv "query_data.csv"
 }
 
 # Submit the data to the API endpoint
-$artifactsRepoBaseUrl = "https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel"
-$artifactsBranch = "features/shift-to-defender-portal"
-$artifactsLocation = "$artifactsRepoBaseUrl/$artifactsBranch"
 
 # $status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/solarigate_CEFevent.csv" -EventsTable "CommonSecurityLog"
 # Write-Host $status
