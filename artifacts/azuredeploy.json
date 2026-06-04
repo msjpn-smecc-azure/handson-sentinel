@@ -55,9 +55,12 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "ArtifactsLocation": {
-                        "value": "[variables('_artifactsLocation')]"
+                    "ArtifactsRepoBaseUrl": {
+                        "value": "[uri(variables('_artifactsRepoBaseUrl'))]"
                     },
+                    "ArtifactsBranch": {
+                        "value": "[uri(variables('_artifactsBranch'))]"
+                    },  
                     "WorkspaceId": {
                         "value": "[reference('workspaceCreation').outputs.workspaceIdOutput.value]"
                     },

@@ -2,10 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "ArtifactsLocation": {
+        "ArtifactsRepoBaseUrl": {
             "type": "string",
             "metadata": {
-                "description": "Base location of deployment artifacts"
+                "description": "Base URL for the repository where the artifacts are stored"
+            }
+        },
+        "ArtifactsBranch": {
+            "type": "string",
+            "metadata": {
+                "description": "Branch name for the repository where the artifacts are stored"
             }
         },
         "WorkspaceId": {
@@ -68,9 +74,17 @@
                     {
                       "name": "SharedKey",
                       "secureValue": "[parameters('SharedKey')]"
+                    },
+                    {
+                      "name": "ArtifactsRepoBaseUrl",
+                      "value": "[uri(parameters('ArtifactsRepoBaseUrl'))]"
+                    },
+                    {
+                      "name": "ArtifactsBranch",
+                      "value": "[uri(parameters('ArtifactsBranch'))]"
                     }
                   ],
-                "primaryScriptUri": "[uri(parameters('ArtifactsLocation'), 'artifacts/Scripts/IngestCSV.ps1')]",
+                "primaryScriptUri": "[uri(parameters('ArtifactsRepoBaseUrl'), parameters('ArtifactsBranch'), 'artifacts/Scripts/IngestCSV.ps1')]",
                 "supportingScriptUris": [],
                 "timeout": "PT30M",
                 "cleanupPreference": "Always",
