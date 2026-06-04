@@ -56,7 +56,7 @@
                 },
                 "parameters": {
                     "ArtifactsLocation": {
-                        "value": "[uri(variables('_artifactsRepoBaseUrl'), variables('_artifactsBranch'))]"
+                        "value": "[variables('_artifactsLocation')]"
                     },
                     "WorkspaceId": {
                         "value": "[reference('workspaceCreation').outputs.workspaceIdOutput.value]"
