@@ -12,6 +12,8 @@
 1. [Microsoft Sentinel ワークスペース 作成](#microsoft-sentinel-ワークスペース-作成)
 1. [サンプルデータの投入](#サンプルデータの投入)
 1. [Microsoft Sentinel プレイブックの構成](#microsoft-sentinel-プレイブックの構成)
+1. [ロールの追加](#ロールの追加)
+1. [Denfederポータル に ワークスペース を接続](#denfederポータル-に-ワークスペース-を接続)
 
 ## Log Analytics Workspace 作成
 
