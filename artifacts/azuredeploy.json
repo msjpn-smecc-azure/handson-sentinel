@@ -11,7 +11,7 @@
     },
     "variables": {
         "_artifactsRepoBaseUrl": "https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel/",
-        "_artifactsBranch": "features/shift-to-defender-portal",
+        "_artifactsBranch": "develop",
         "_artifactsLocation": "[concat(variables('_artifactsRepoBaseUrl'), variables('_artifactsBranch'), '/')]"
     },
     "resources": [
