@@ -5,7 +5,7 @@
         "ArtifactsLocation": {
             "type": "string",
             "metadata": {
-                "description": "Base location of deployment artifacts"
+                "description": "Base URL for the repository where the artifacts are stored"
             }
         },
         "WorkspaceId": {
@@ -68,6 +68,10 @@
                     {
                       "name": "SharedKey",
                       "secureValue": "[parameters('SharedKey')]"
+                    },
+                    {
+                      "name": "ArtifactsLocation",
+                      "value": "[parameters('ArtifactsLocation')]"
                     }
                   ],
                 "primaryScriptUri": "[uri(parameters('ArtifactsLocation'), 'artifacts/Scripts/IngestCSV.ps1')]",

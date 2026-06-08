@@ -12,6 +12,8 @@
 1. [Microsoft Sentinel ワークスペース 作成](#microsoft-sentinel-ワークスペース-作成)
 1. [サンプルデータの投入](#サンプルデータの投入)
 1. [Microsoft Sentinel プレイブックの構成](#microsoft-sentinel-プレイブックの構成)
+1. [ロールの追加](#ロールの追加)
+1. [Denfederポータル に ワークスペース を接続](#denfederポータル-に-ワークスペース-を接続)
 
 ## Log Analytics Workspace 作成
 
@@ -63,9 +65,9 @@
 
 1. 以下のデプロイボタンより、サンプルデータをワークスペースへ投入
 
-    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmsjpn-smecc-azure%2Fhandson-sentinel%2Ffeatures%2Fsampledataingest%2Fartifacts%2Fazuredeploy.json)
+    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmsjpn-smecc-azure%2Fhandson-sentinel%2Fdevelop%2Fartifacts%2Fazuredeploy.json)
 
-    (*) [ARMテンプレート](https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel/features/sampledataingest/artifacts/azuredeploy.json)
+    (*) [ARMテンプレート](https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel/develop/artifacts/azuredeploy.json)
 
 1. デプロイ画面で、以下の項目を入力して「確認と作成」を選択
 
@@ -152,4 +154,29 @@
 
     ![](../images/ex01-306.png)
 
+
+## ロールの追加
+
+1. Azureポータルにて作成したリソースグループを開き、左側の「アクセス制御(IAM)」を選択、[ロールの追加]-[ロールの割り当てを追加] を選択
+
+1. ロールの割り当ての追加
+
+    以下のロールを現在のユーザーに追加
+
+    - Microsoft Sentinel Contributor (Microsoft Sentinel 共同作成者)
+    - Microsoft Sentinel Automation Contributor (Microsoft Sentinel Automation 共同作成者)
+
+
+## Denfederポータル に ワークスペース を接続
+
+1. Defenderポータルを開く
+
+    - [Defender ポータル](https://security.microsoft.com/)
+
+1. [システム]-[設定] を開き、「Microsoft Sentinel」を選択
+
+
+1. 「SIEM ワークスペース」にて、作成したワークスペースを選択して「ワークスペースの接続」を選択
+
+    (*) 必要に応じて「プライマリワークスペース」を設定
 

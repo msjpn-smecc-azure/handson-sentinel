@@ -7,6 +7,7 @@
 
 $CustomerId = ${Env:CustomerId}
 $SharedKey = ${Env:SharedKey}
+$ArtifactsLocation = ${Env:ArtifactsLocation}
 
 # You can use an optional field to specify the timestamp from the data. If the time field is not specified, Azure Monitor assumes the time is the message ingestion time
 #$TimeStampField = ""
@@ -160,56 +161,53 @@ $eventsData = Import-Csv "query_data.csv"
 }
 
 # Submit the data to the API endpoint
-$artifactsRepoBaseUrl = "https://raw.githubusercontent.com/msjpn-smecc-azure/handson-sentinel"
-$artifactsBranch = "features/sampledataingest"
-$artifactsLocation = "$artifactsRepoBaseUrl/$artifactsBranch"
 
-# $status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/solarigate_CEFevent.csv" -EventsTable "CommonSecurityLog"
+# $status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/solarigate_CEFevent.csv" -EventsTable "CommonSecurityLog"
 # Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/securityEvents.csv" -EventsTable "SecurityEvent"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/securityEvents.csv" -EventsTable "SecurityEvent"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/disable_accounts.csv" -EventsTable "SigninLogs"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/disable_accounts.csv" -EventsTable "SigninLogs"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/office_activity_inbox_rule.csv" -EventsTable "OfficeActivity"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/office_activity_inbox_rule.csv" -EventsTable "OfficeActivity"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/azureActivity_adele.csv" -EventsTable "AzureActivity"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/azureActivity_adele.csv" -EventsTable "AzureActivity"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/office_activity.csv" -EventsTable "OfficeActivity"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/office_activity.csv" -EventsTable "OfficeActivity"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/sign-in_adelete.csv" -EventsTable "SigninLogs"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/sign-in_adelete.csv" -EventsTable "SigninLogs"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/model_evasion_detection_CL_alerts.csv" -EventsTable "OfficeActivity"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/model_evasion_detection_CL_alerts.csv" -EventsTable "OfficeActivity"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/solarigate-beacon-umbrella.csv" -EventsTable "Cisco_Umbrella_dns"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/solarigate-beacon-umbrella.csv" -EventsTable "Cisco_Umbrella_dns"
 Write-Host $status
 
-$status = SendToLogA -url "$artifactsLocation/artifacts/Telemetry/AuditLogs_Hunting.csv" -EventsTable "AuditLogs"
+$status = SendToLogA -url "$ArtifactsLocation/artifacts/Telemetry/AuditLogs_Hunting.csv" -EventsTable "AuditLogs"
 Write-Host $status
 
-# $status = SendToLogA -url "$artifactsLocation/master/artifacts/Telemetry/ABAPAppLog_CL.csv" -EventsTable "ABAPAppLog_CL"
+# $status = SendToLogA -url "$ArtifactsLocation/master/artifacts/Telemetry/ABAPAppLog_CL.csv" -EventsTable "ABAPAppLog_CL"
 # Write-Host $status
 
-# $status = SendToLogA -url "$artifactsLocation/master/artifacts/Telemetry/ABAPAuditLog_CL.csv" -EventsTable "ABAPAuditLog_CL"
+# $status = SendToLogA -url "$ArtifactsLocation/master/artifacts/Telemetry/ABAPAuditLog_CL.csv" -EventsTable "ABAPAuditLog_CL"
 # Write-Host $status
 
-# $status = SendToLogA -url "$artifactsLocation/master/artifacts/Telemetry/ABAPChangeDocsLog_CL.csv" -EventsTable "ABAPChangeDocsLog_CL"
+# $status = SendToLogA -url "$ArtifactsLocation/master/artifacts/Telemetry/ABAPChangeDocsLog_CL.csv" -EventsTable "ABAPChangeDocsLog_CL"
 # Write-Host $status
 
-# $status = SendToLogA -url "$artifactsLocation/master/artifacts/Telemetry/ABAPCRLog_CL.csv" -EventsTable "ABAPCRLog_CL"
+# $status = SendToLogA -url "$ArtifactsLocation/master/artifacts/Telemetry/ABAPCRLog_CL.csv" -EventsTable "ABAPCRLog_CL"
 # Write-Host $status
 
-# $status = SendToLogA -url "$artifactsLocation/master/artifacts/Telemetry/ABAPJobLog_CL.csv" -EventsTable "ABAPJobLog_CL"
+# $status = SendToLogA -url "$ArtifactsLocation/master/artifacts/Telemetry/ABAPJobLog_CL.csv" -EventsTable "ABAPJobLog_CL"
 # Write-Host $status
 
-# $status = SendToLogA -url "$artifactsLocation/master/artifacts/Telemetry/ABAPSpoolLog_CL.csv" -EventsTable "ABAPSpoolLog_CL"
+# $status = SendToLogA -url "$ArtifactsLocation/master/artifacts/Telemetry/ABAPSpoolLog_CL.csv" -EventsTable "ABAPSpoolLog_CL"
 # Write-Host $status
 
 Start-Sleep -Seconds 600
