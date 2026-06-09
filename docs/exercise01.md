@@ -18,13 +18,13 @@
 ## Log Analytics Workspace 作成
 
 1. [Azure ポータル](https://portal.azure.com/) を開く
-1. 上部の検索窓を使って Log Analytics Workspace を探して開く
+1. 上部の検索窓を使って `Log Analytics Workspace` を探して開く
 
-    ![](../images/ex01-001.png)
+    ![](../images/ex01/0001.png)
 
 1. 左上「作成」を選択
 
-    ![](../images/ex01-002.png)
+    ![](../images/ex01/0002.png)
 
 1. Log Analytics Workspace を開き、「作成」を選択
     1. 基本
@@ -33,7 +33,7 @@
         - 名前: (任意)
         - リージョン: (任意)
     
-        ![](../images/ex01-003.png)
+        ![](../images/ex01/0003.png)
 
     1. タグ
 
@@ -43,27 +43,27 @@
 
         「作成」を選択
 
-        ![](../images/ex01-004.png)
+        ![](../images/ex01/0004.png)
 
 
 ## Microsoft Sentinel ワークスペース 作成
 
 1. Azure ポータルを開き、上部検索窓から Sentinel を検索して開く
 
-    ![](../images/ex01-101.png)
+    ![](../images/ex01/0101.png)
 
 1. 左上「作成」を選択
 
-    ![](../images/ex01-102.png)
+    ![](../images/ex01/0102.png)
 
 1. 作成済のワークスペースを選択して「追加」
 
-    ![](../images/ex01-103.png)
+    ![](../images/ex01/0103.png)
 
 
 ## サンプルデータの投入
 
-1. 以下のデプロイボタンより、サンプルデータをワークスペースへ投入
+1. 以下のデプロイボタンより、サンプルデータを Log Analytics Workspace へ投入
 
     [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmsjpn-smecc-azure%2Fhandson-sentinel%2Fdevelop%2Fartifacts%2Fazuredeploy.json)
 
@@ -71,61 +71,23 @@
 
 1. デプロイ画面で、以下の項目を入力して「確認と作成」を選択
 
-    - サブスクリプション: (任意)
-    - リソースグループ: (作成したもの)
-    - ワークスペース: (作成したもの)
+    - サブスクリプション: (ハンズオン用に準備したもの)
+    - リソースグループ: (作成した リソースグループ の名前)
+    - リージョン: (作成した リソースグループ と同じリージョン)
+    - ワークスペース: (作成した Log Analytics Workspace の名前)
+
+    ![](../images/ex01/0201a.png)
+
+
+<div style="text-align: center; font-size: 1.2em; font-weight: bold; margin: 4em;">
+～ デプロイ待ち (20-30分) ☕☕☕ ... ～
+</div>
+
 
 1. (オプション) データ投入で利用した不要なリソース(`xxx` で始まる以下のリソース)を削除
 
     - Deployment Script
     - ストレージアカウント
-
-<!-- 
-## Microsoft Sentinel Training ラボ のデプロイ
-
-1. Azure ポータルを開き、上部検索窓から `Microsoft Sentinel Training Lab Solution` を検索して開く
-
-    ![](../images/ex01-201.png)
-
-1. 「作成」を選択
-
-    ![](../images/ex01-202.png)
-
-1. `Microsoft Sentinel Training Lab Solution` の作成
-    1. 基本
-
-        - リソースグループ: (作成したもの)
-        - ワークスペース： (作成したもの)
-
-        ![](../images/ex01-203a.png)
-
-    1. ワークブック
-
-        デフォルトまま
-
-        ![](../images/ex01-203b.png)
-
-    1. 分析
-
-        特に設定なし
-
-        ![](../images/ex01-203c.png)
-
-    1. プレイブック
-
-        - Playbook Name: `Get-GeoFromIpAndTagIncident`
-
-        ![](../images/ex01-203d.png)
-
-    1. 確認と作成
-
-        「作成」を選択
-
-        ![](../images/ex01-204.png)
-
-
-#### ～ デプロイ待ち (20-30分) ☕☕☕ ... ～
--->
 
 
 ## Microsoft Sentinel プレイブックの構成
