@@ -84,52 +84,112 @@
 </div>
 
 
-1. (オプション) データ投入で利用した不要なリソース(`xxx` で始まる以下のリソース)を削除
+1. (オプション) 不要リソースの削除
+
+    1. デプロイ後、「リソースグループに移動」
+
+        ![](../images/ex01/0202a.png)
+
+    1. `xxx` で始まる以下のリソースを削除
 
     - Deployment Script
     - ストレージアカウント
 
+        ![](../images/ex01/0202b.png)
+
 
 ## Microsoft Sentinel プレイブックの構成
 
-1. デプロイされたリソースグループへ移動
+1. デプロイされたリソースグループへ移動、リソース グループにある `azuresentinel-Get-GeoFromIpAndTagIncident` という API 接続リソースを選択
 
-    ![](../images/ex01-301.png)
-
-1. リソース グループにある `azuresentinel-Get-GeoFromIpAndTagIncident` という API 接続リソースを選択
-
-    ![](../images/ex01-302.png)
+    ![](../images/ex01/0301.png)
 
 1. [全般]-[API接続の編集] を開く
 
-    ![](../images/ex01-303.png)
+    ![](../images/ex01/0302.png)
 
 1. 「承諾する」を開き、「承諾する」を選択
 
-    ![](../images/ex01-304.png)
+    ![](../images/ex01/0303.png)
 
 1. ログイン画面が表示されるので、作業用のご自身のアカウントでログイン
 
-    ![](../images/ex01-305.png)
+    ![](../images/ex01/0304.png)
 
 1. 元の「API接続の編集」画面へ戻って、「保存」を選択
 
-    ![](../images/ex01-306.png)
+    ![](../images/ex01/0305.png)
 
 
 ## ロールの追加
 
-1. Azureポータルにて作成したリソースグループを開き、左側の「アクセス制御(IAM)」を選択、[ロールの追加]-[ロールの割り当てを追加] を選択
+作成したリソースグループに対して以下の2つのロールを現在のユーザーに追加します。これらのロールは、Microsoft Sentinel のプレイブックで利用される API 接続を正常に動作させるために必要です。
 
-1. ロールの割り当ての追加
+    【スコープ】
+    - 作成したリソースグループ
 
-    以下のロールを現在のユーザーに追加
-
+    【ロール】
     - Microsoft Sentinel Contributor (Microsoft Sentinel 共同作成者)
     - Microsoft Sentinel Automation Contributor (Microsoft Sentinel Automation 共同作成者)
 
+    【メンバー】
+    - 現在のユーザー(ご自身のアカウント)
 
-## Denfederポータル に ワークスペース を接続
+実際にロールを追加する手順は次の通りです。
+
+1. Azureポータルにて作成したリソースグループを開く
+
+1. 左側の「アクセス制御(IAM)」を選択、[ロールの追加]-[ロールの割り当てを追加] を選択
+
+    ![](../images/ex01/0401.png)
+
+1. `Microsoft Sentinel Contributor (Microsoft Sentinel 共同作成者)` ロールの割り当ての追加
+
+    1. ロールの選択
+
+        「カテゴリ」を「セキュリティ」で絞り、「Microsoft Sentinel Contributor (Microsoft Sentinel 共同作成者)」を選択して「次へ」
+
+        ![](../images/ex01/0402a.png)
+
+    1. ユーザーの選択
+
+        以下の選択を行い、自分自身を検索して追加
+
+        - 選択されたロール: `ユーザー、グループ、またはサービスプリンシパルを選択`
+        - メンバーの選択: (自分のアカウントを選択)
+
+        ![](../images/ex01/0402b.png)
+
+    1. 割り当てのタイプ
+
+        PIM (Privileged Identity Management) を利用している場合のみ発生する画面  
+        割り当ての有効期間を設定することも可能ですが、今回は「恒久的な割り当て」を選択
+
+        - 割り当てタイプ: `アクティブ (Active)`
+        - 割り当て期間: `恒久的な割り当て (Permanent)`
+
+        ![](../images/ex01/0402c.png)
+
+    1. レビューと割り当て
+
+        内容を確認して「割り当て」を選択
+
+        ![](../images/ex01/0402d.png)
+
+1. 同様に、`Microsoft Sentinel Automation Contributor (Microsoft Sentinel Automation 共同作成者)` も追加
+
+    1. ロール ~ 割り当てのタイプ
+
+        前述手順と同じため省略
+
+    1. レビューと割り当て
+
+        内容を確認して「割り当て」を選択
+
+        ![](../images/ex01/0403.png)
+
+
+## Defenderポータル に ワークスペース を接続
 
 1. Defenderポータルを開く
 
@@ -137,8 +197,35 @@
 
 1. [システム]-[設定] を開き、「Microsoft Sentinel」を選択
 
+    ![](../images/ex01/0501.png)
 
-1. 「SIEM ワークスペース」にて、作成したワークスペースを選択して「ワークスペースの接続」を選択
+1. 「SIEM ワークスペース」にて「ワークスペースの接続」を選択
 
-    (*) 必要に応じて「プライマリワークスペース」を設定
+    ![](../images/ex01/0502.png)
 
+1. ワークスペースの接続
+
+    1. ワークスペース
+
+        作成した Log Analytics Workspace を選択して「次へ」
+
+        ![](../images/ex01/0503a.png)
+
+    1. プライマリの設定
+
+        - プライマリワークスペース: (作成した Log Analytics Workspace の名前)
+
+        ![](../images/ex01/0503b.png)
+
+    1. 確認して完了する
+
+        内容を確認して「接続」を選択
+
+        ![](../images/ex01/0503c.png)
+
+1. 接続完了
+
+    ワークスペースの接続が完了すると、Defender ポータルの Microsoft Sentinel 設定画面で、接続したワークスペースが表示されます。  
+    「状態」が「接続済み」になっていることを確認してください。
+
+    ![](../images/ex01/0504.png)
