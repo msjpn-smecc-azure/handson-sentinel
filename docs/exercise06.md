@@ -17,7 +17,7 @@
 
 1. [Microsoft Sentinel]-[構成]-[ウォッチリスト] を開き、「新規」を選択
 
-    <!-- ![](../images/ex06-101.png) -->
+    ![](../images/ex06/0101.png)
 
 1. ウォッチリストの新規作成
 
@@ -27,7 +27,7 @@
         - 説明: `ペネトレーションテスト中に利用したIPアドレス`
         - エイリアス: `PenTestsIPaddresses`
 
-        <!-- ![](../images/ex06-102a.png) -->
+        ![](../images/ex06/0102a.png)
 
     1. ソース
 
@@ -37,23 +37,22 @@
         - ファイルのアップロード: "[PenTestsIPaddresses.csv](../artifacts/Telemetry/PenTestsIPaddresses.csv)" ダウンロードしてエリアへドラッグ＆ドロップ
         - SearchKey: `IPAddress`
 
-        <!-- ![](../images/ex06-102b.png) -->
+        ![](../images/ex06/0102b.png)
 
     1. 確認と作成
 
         「作成」を選択
 
-        <!-- ![](../images/ex06-102c.png) -->
+        ![](../images/ex06/0102c.png)
 
-～ しばらく待ち (数分程度) ～
 
-1. ウォッチリスト画面の右上「更新」を選択して情報を更新
-
-    <!-- ![](../images/ex06-103.png) -->
+<div style="text-align: center; font-size: 1.2em; font-weight: bold; margin: 4em;">
+～ しばらく待ち (数分程度) ☕☕☕ ... ～
+</div>
 
 1. 作成した `PenTestsIPaddresses` を選択、「ログに表示」を開く
 
-    <!-- ![](../images/ex06-104.png) -->
+    ![](../images/ex06/0103.png)
 
 1. CSV情報の登録を確認
 
@@ -63,24 +62,22 @@
      _GetWatchlist('PenTestsIPaddresses')
      ```
 
-    <!-- ![](../images/ex06-105.png) -->
+    ![](../images/ex06/0104.png)
 
-
-<!------------------------------------------------------------------------->
 
 ## 分析ルールにウォッチリストを利用
 
 1. [Microsoft Sentinel]-[コンテンツ管理]-[コンテンツ ハブ] を開く
 
-    <!-- ![](../images/ex06-201.png) -->
+    ![](../images/ex06/0201.png)
 
 1. `High count of connections by client IP on many ports` を検索して選択、「インストール」
 
-    <!-- ![](../images/ex06-202.png) -->
+    ![](../images/ex06/0202.png)
 
 1. インストール完了後、「ルールの作成」を選択
 
-    <!-- ![](../images/ex06-204.png) -->
+    ![](../images/ex06/0203.png)
 
 1. 分析ルールの作成
 
@@ -117,7 +114,7 @@
         | order by portCount
         ```
 
-        <!-- ![](../images/ex06-205b.png) -->
+        ![](../images/ex06/0204b.png)
 
     1. インシデントの設定
 
@@ -126,7 +123,7 @@
             - 選択した期間: `5時間`
             - グループ化: `すべてのエンティティが一致した場合にアラートを1つのインシデントにグループ化する`
 
-        <!-- ![](../images/ex06-205c.png) -->
+        ![](../images/ex06/0204c.png)
 
     1. 自動応答
 
@@ -138,6 +135,6 @@
 
         「保存」を選択
 
-        <!-- ![](../images/ex06-205e.png) -->
+        ![](../images/ex06/0204e.png)
 
 
